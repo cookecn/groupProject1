@@ -4,7 +4,7 @@
 
 # Contributors
 *@cookecn
-*@
+*@JASEpstein
 
 # Technology
 *Bootstrap, CSS, and jQuery, AJAX, and everything else.
