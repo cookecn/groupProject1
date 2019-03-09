@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>groupProject1</title>
+    <title>UHike - Find your trail</title>
     <!--Link Bulma-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <!--Link jQuery-->
@@ -13,118 +14,121 @@
     <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
     <!--Link mapbox-->
     <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet'/>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 
 </head>
 
-<!--Header-->
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-      <a class="navbar-item" href="#">
-        <img src="images/logo.jpg" alt="logo">
-      </a>
-      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-        <span aria-hidden="true"></span>
-      </a>
-    </div>
-</nav>
+<body>
+    <!--Header-->
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="#">
+                <img src="images/logo.jpg" alt="logo">
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+    </nav>
 
 
-<!--Card to hold controls in one line-->
-<div class="container">
-    <div class="notification">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">Hike Selections</p>
-                <a href="#" class="card-header-icon" aria-label="more options">
-                    <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </a>
-            </header>
+    <!--Card to hold controls in one line-->
+    <div class="container">
+        <div class="notification">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Hike Selections</p>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </header>
 
-            <footer class="card-footer">
-            <!--filter buttons-->
-            <a href="#" class="card-footer-item">Beginner</a>
-            <a href="#" class="card-footer-item">Intermediate</a>
-            <a href="#" class="card-footer-item">Advanced</a>
-            <!--Slide bar for time selection-->
+                <footer class="card-footer">
+                    <!--filter buttons-->
+                    <a href="#" class="card-footer-item">Beginner</a>
+                    <a href="#" class="card-footer-item">Intermediate</a>
+                    <a href="#" class="card-footer-item">Advanced</a>
+                    <!--Slide bar for time selection-->
 
-            </footer>
-            <!--Search bar-->
-            <div class="card-content">
-                <div class="content"></div>
+                </footer>
+                <!--Search bar-->
+                <div class="card-content">
+                    <div class="content"></div>
                     <input class="input" type="text" placeholder="Text input"><input class="button" type="submit" value="Submit">
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 
-<!--card to hold map widget-->
-<div class="container">
-    <div class="notification">
-        <div class="card">
-            <div class="card-content">
-                <div class="content"></div>
+    <!--card to hold map widget-->
+    <div class="container">
+        <div class="notification">
+            <div class="card">
+                <div class="card-content">
+                    <div class="content"></div>
                     <iframe></iframe>
                 </div>
             </div>
         </div>
     </div>
-</div>        
+    </div>
 
-<!--card to list generated results-->
-<div class="container">
-<div class="notification">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title">Trail Options</p>
-                <a href="#" class="card-header-icon" aria-label="more options">
-                    <span class="icon">
-                        <i class="fas fa-angle-down" aria-hidden="true"></i>
-                    </span>
-                </a>
-            </header>
+    <!--card to list generated results-->
+    <div class="container">
+        <div class="notification">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Trail Options</p>
+                    <a href="#" class="card-header-icon" aria-label="more options">
+                        <span class="icon">
+                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                        </span>
+                    </a>
+                </header>
 
-            <!--Div to hold content-->
-            <div class="card-content">
-                <div class="content"></div>
+                <!--Div to hold content-->
+                <div class="card-content">
+                    <div class="content"></div>
                     <p></p>
                 </div>
             </div>
         </div>
     </div>
-</div>
+    </div>
 
 
-<!--Container for reviews-->
-<div class="container">
+    <!--Container for reviews-->
+    <div class="container">
         <div class="notification">
-                <div class="card">    
-                    <!--Div to hold content-->
-                    <div class="card-content">
-                        <div class="content"></div>
-                            <p></p>
-                        </div>
-                    </div>
+            <div class="card">
+                <!--Div to hold content-->
+                <div class="card-content">
+                    <div class="content"></div>
+                    <p></p>
                 </div>
             </div>
         </div>
-
-<!--Footer-->
-<footer class="footer">
-    <div class="content has-text-centered">
-        <p>
-            <strong>U Hike</strong> by <a href="https://jgthms.com">Jamie Epstein, Colby Cooke, Lisa Vo, Preston Sparks
-        </p>
     </div>
-</footer>
+    </div>
+
+    <!--Footer-->
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>U Hike</strong> by <a href="https://jgthms.com">Jamie Epstein, Colby Cooke, Lisa Vo, Preston
+                    Sparks
+            </p>
+        </div>
+    </footer>
 
 
-<body>
-    
+
+
 </body>
+
 </html>
