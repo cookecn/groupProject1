@@ -6,127 +6,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>UHike - Find your trail</title>
-    <!--Link Bulma-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
     <!--Link jQuery-->
-    <script src="jquery-3.3.1.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+    <!-- Link SemanticUI CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css' />
+    <!-- Link Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
     <!--Link Firebase-->
-    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script> -->
     <!--Link mapbox-->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script> -->
+    <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' /> -->
 
 </head>
 
 <body>
-    <!--Header-->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="#">
-                <img src="images/logo.jpg" alt="logo">
-            </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
+    <!-- Navbar -->
+    <div class="ui menu">
+        <div class="header item">
+            <img src="images/route-icon.png">
         </div>
-    </nav>
+        <h1 class="header item">U-Hike</h1>
 
+        <div class="right menu">
+            <button class="ui item icon button">
+                <i class="crosshairs icon"></i>
+            </button>
+        </div>
+    </div>
 
-    <!--Card to hold controls in one line-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">Hike Selections</p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </header>
+    <!-- Spacer DIV -->
+    <!-- <div class="spacer"></div> -->
 
-                <footer class="card-footer">
-                    <!--filter buttons-->
-                    <a href="#" class="card-footer-item">Beginner</a>
-                    <a href="#" class="card-footer-item">Intermediate</a>
-                    <a href="#" class="card-footer-item">Advanced</a>
-                    <!--Slide bar for time selection-->
-
-                </footer>
-                <!--Search bar-->
-                <div class="card-content">
-                    <div class="content"></div>
-                    <input class="input" type="text" placeholder="Text input"><input class="button" type="submit" value="Submit">
+    <!-- Initial Selection Box -->
+    <div class="ui placeholder segment">
+        <div class="ui two column stackable center aligned grid">
+            <div class="ui vertical divider">Or</div>
+            <div class="middle aligned row">
+                <div class="column">
+                    <div class="ui icon header">
+                        <i class="search icon"></i>
+                        Browse Hikes by...
+                    </div>
+                    <div class="field">
+                        <div class="ui blue labeled icon top right pointing dropdown button">
+                            <i class="angle double up icon"></i>
+                            <span class="text">Difficulty</span>
+                            <div class="menu">
+                                <div class="item">
+                                    <div class="ui green empty circular label"></div>
+                                    Easy
+                                </div>
+                                <div class="item">
+                                    <div class="ui yellow empty circular label"></div>
+                                    Medium
+                                </div>
+                                <div class="item">
+                                    <div class="ui red empty circular label"></div>
+                                    Hard
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="ui icon header">
+                        <i class="map icon"></i>
+                        Find a Hike Near Me
+                    </div>
+                    <div class="ui primary button">
+                        Search
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
 
-    <!--card to hold map widget-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <div class="card-content">
-                    <div class="content"></div>
-                    <iframe></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <!--card to list generated results-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">Trail Options</p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </header>
-
-                <!--Div to hold content-->
-                <div class="card-content">
-                    <div class="content"></div>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+    <!-- Map Background -->
+    <div id='map'></div>
 
 
-    <!--Container for reviews-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <!--Div to hold content-->
-                <div class="card-content">
-                    <div class="content"></div>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+    <!-- Link SemanticUI JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js'></script>
+    <!-- Link to JS file -->
+    <script src="map.js"></script>
+    <!-- Script for Google Maps Load in -->
+    <script>
+        var map, infoWindow;
 
-    <!--Footer-->
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <strong>U Hike</strong> by <a href="https://jgthms.com">Jamie Epstein, Colby Cooke, Lisa Vo, Preston
-                    Sparks
-            </p>
-        </div>
-    </footer>
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 36.144700,
+                    lng: -86.804050
+                },
+                zoom: 14,
+                disableDefaultUI: true
+
+            });
+            infoWindow = new google.maps.InfoWindow;
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
 
 
+                    map.setCenter(pos);
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: 'You are here'
+                    });
+
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
+
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4&callback=initMap"
+        async defer>
+    </script>
 
 
 </body>

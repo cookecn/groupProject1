@@ -1,0 +1,36 @@
+#map {
+    height: 100%;
+    position: fixed !important;
+    top: 0;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.ui.menu {
+    position: relative;
+    z-index: 2;
+    height: 60px;
+    margin: 0;
+    margin: 2rem;
+}
+
+
+
+.ui.segment {
+    top: 27rem;
+    margin: 2rem;
+    z-index: 2;
+}
+
+#logo {
+    width: 112px;
+    max-height: 4.75rem;
+}
