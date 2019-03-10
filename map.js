@@ -1,3 +1,7 @@
+$('.ui.dropdown')
+    .dropdown();
+
+
 // var map, infoWindow;
 
 // function initMap() {
