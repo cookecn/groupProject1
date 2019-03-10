@@ -1,0 +1,30 @@
+#map {
+    height: 100%;
+    position: absolute;
+    top: 0;
+    /* overflow: hidden; */
+    left: 0;
+    right: 0;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.top-space {
+    height: 40px;
+    z-index: 2;
+}
+
+.navbar {
+    z-index: 2 !important;
+    height: 90px;
+}
+
+#logo {
+    width: 112px;
+    max-height: 4.75rem !important;
+}

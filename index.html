@@ -6,128 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>UHike - Find your trail</title>
+    <!-- Link CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Link to Map JS file -->
+    <link rel="text/javascript" href="map.js">
     <!--Link Bulma-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+    <!-- <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.css' /> -->
     <!--Link jQuery-->
-    <script src="jquery-3.3.1.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+    <!-- Link FontAwesome -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.2/css/fontawesome.css' />
+    <!-- Link Bootstrap CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css' />
+
+    <!-- Link SemanticUI -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css' />
     <!--Link Firebase-->
-    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script> -->
     <!--Link mapbox-->
-    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script> -->
+    <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' /> -->
+
 
 </head>
 
 <body>
-    <!--Header-->
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="#">
-                <img src="images/logo.jpg" alt="logo">
-            </a>
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-    </nav>
+    <!-- Map Background -->
+    <div id='map'></div>
+
+    <script>
+        var map, infoWindow;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {
+                    lat: 36.144700,
+                    lng: -86.804050
+                },
+                zoom: 14,
+                disableDefaultUI: true
+
+            });
+            infoWindow = new google.maps.InfoWindow;
+
+            // Try HTML5 geolocation.
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    };
 
 
-    <!--Card to hold controls in one line-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">Hike Selections</p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </header>
+                    map.setCenter(pos);
+                    var marker = new google.maps.Marker({
+                        position: pos,
+                        map: map,
+                        title: 'You are here'
+                    });
 
-                <footer class="card-footer">
-                    <!--filter buttons-->
-                    <a href="#" class="card-footer-item">Beginner</a>
-                    <a href="#" class="card-footer-item">Intermediate</a>
-                    <a href="#" class="card-footer-item">Advanced</a>
-                    <!--Slide bar for time selection-->
+                }, function () {
+                    handleLocationError(true, infoWindow, map.getCenter());
+                });
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+        }
 
-                </footer>
-                <!--Search bar-->
-                <div class="card-content">
-                    <div class="content"></div>
-                    <input class="input" type="text" placeholder="Text input"><input class="button" type="submit" value="Submit">
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
+        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                'Error: The Geolocation service failed.' :
+                'Error: Your browser doesn\'t support geolocation.');
+            infoWindow.open(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4&callback=initMap"
+        async defer>
+    </script>
 
-    <!--card to hold map widget-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <div class="card-content">
-                    <div class="content"></div>
-                    <iframe></iframe>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <!--card to list generated results-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <header class="card-header">
-                    <p class="card-header-title">Trail Options</p>
-                    <a href="#" class="card-header-icon" aria-label="more options">
-                        <span class="icon">
-                            <i class="fas fa-angle-down" aria-hidden="true"></i>
-                        </span>
-                    </a>
-                </header>
-
-                <!--Div to hold content-->
-                <div class="card-content">
-                    <div class="content"></div>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-
-    <!--Container for reviews-->
-    <div class="container">
-        <div class="notification">
-            <div class="card">
-                <!--Div to hold content-->
-                <div class="card-content">
-                    <div class="content"></div>
-                    <p></p>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-
-    <!--Footer-->
-    <footer class="footer">
-        <div class="content has-text-centered">
-            <p>
-                <strong>U Hike</strong> by <a href="https://jgthms.com">Jamie Epstein, Colby Cooke, Lisa Vo, Preston
-                    Sparks
-            </p>
-        </div>
-    </footer>
-
-
-
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js'></script>
 
 </body>
 
