@@ -42,3 +42,49 @@ $('.ui.dropdown')
 //         'Error: Your browser doesn\'t support geolocation.');
 //     infoWindow.open(map);
 // }
+
+
+// **************************************************
+// IPGeolocation API (used to get geolocation of IP accessing the site)
+// Documentation @ https://ipgeolocation.io/documentation/ip-geolocation-api-201812061140
+var userCity;
+var userLatitude;
+var userLongitude;
+
+function getUserIPLocation() {
+    var ipGeoLocationAPIKey = "13254077d97f4249a0a6d6fd72053172";
+    var queryURL = "https://api.ipgeolocation.io/ipgeo?apiKey=" + ipGeoLocationAPIKey + "&fields=geo";
+    $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        userCity = response.city;
+        userLatitude = response.latitude;
+        userLongitude = response.longitude;
+        console.log(response);
+        console.log(userLongitude);
+})}
+// Call function
+getUserIPLocation();
+
+// **************************************************
+
+https://www.hikingproject.com/data/get-trails?lat=40.0274&lon=-105.2519&maxDistance=10&key=YOUR_KEY_HERE
+
+function getTrails() {
+    var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
+    var userLatitude = "35.8456"
+    var userLongitude = "-86.3903"
+    var maxDistance = "10" // Max distance in miles, default = 30, max = 200
+    var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + userLatitude + "&lon=" + userLongitude + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey; 
+        $.ajax({
+        url: queryURL,
+        method: "GET"
+    }).then(function (response) {
+        // userCity = response.city;
+        // userLatitude = response.latitude;
+        // userLongitude = response.longitude;
+        console.log(response);
+})}
+// Call function
+getTrails();
