@@ -14,8 +14,8 @@ function getUserIPLocation() {
         method: "GET"
     }).then(function (response) {
         userCity = response.city;
-        userLatitude = response.latitude;
-        userLongitude = response.longitude;
+        userIPLatitude = response.latitude;
+        userIPLongitude = response.longitude;
         console.log(response);
         console.log(userLongitude);
 })}
@@ -27,9 +27,10 @@ getUserIPLocation();
 // *** TO-DO: Update function to pull User's lat & long; currently hard-coded
 function getTrails() {
     var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
-    var userLatitude = "35.8456"
-    var userLongitude = "-86.3903"
-    var maxDistance = "10" // Max distance in miles, default = 30, max = 200
+    getUserIPLocation();
+    var userLatitude = userIPLatitude;
+    var userLongitude = userIPLongitude;
+    var maxDistance = "50" // Max distance in miles, default = 30, max = 200
     var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + userLatitude + "&lon=" + userLongitude + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey; 
         $.ajax({
         url: queryURL,
@@ -141,3 +142,8 @@ $("#find-hike-button").click(function() {
     $("#table-body").empty(); // Empty tabe-body to prevent multiple button clicks from re-displaying table data
     getTrails();
 });
+
+// **************************************************
+// Directons
+// https://www.mapquestapi.com/d irections/v2/route?key=KEY&from=Denver%2C+CO&to=Boulder%2C+CO&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false
+// API Docs @ https://developer.mapquest.com/documentation/common/forming-locations/
