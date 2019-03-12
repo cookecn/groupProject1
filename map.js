@@ -149,14 +149,13 @@ $("#find-hike-button").click(function() {
 // https://developers.google.com/maps/documentation/javascript/tutorial
 // Google API Key: AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4
 
+// Google Maps JavaScript API Tutorial: https://www.youtube.com/watch?v=Zxf1mnP5zcw
+// Shows how to create loop to add markers
+
 var map;
 function initMap(){
     // Map otions
     var options = {
-    // userCurrentLocation = {
-        //     lat: 35.8456,
-        //     long: -86.3903
-        // },
         center: {lat:35.8456,lng:-86.3903},
         zoom:10,
     }
@@ -171,14 +170,61 @@ addMarker({lat:35.8456,lng:-86.3903})
 
 // Function to add new markers on map
 function addMarker(coords) {
-    var currentLocationMarker = new google.maps.Marker({
+    new google.maps.Marker({
         position:coords,
         map:map,
         icon:'images/hiker-icon.png'
     });
+    }
 }
-};
+
+// ********** DISTANCE API **********
+// // Set origin (current location)
+// var origin = new google.maps.LatLng(35.9828,-86.5186);
+// // Set destination (trail selected)
+// var destination = new googlemaps.LatLng(35.8456,-86.3903);
+
+// var service = new google.maps.DistanceMatrixServce();
+// service.getDistranceMatrix(
+//     {
+//         origins: [origin],
+//         destinations: [destination],
+//         travelMode: "DRIVING",
+//         unitSystem: google.maps.UnitSystem.IMPERIAL,
+
+//     }
+//     )
+//     console.log("distance...",service)
 
 
+// ********** DIRECTIONS API **********
+// TO-DO: "center", "start", and "end" are still hardcoded- replace values w/ userLocation and trail selected ******
+var directionsDisplay;
+var directionsService;
+function getDirections() {
+    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsService = new google.maps.DirectionsService();
+    var chicago = new google.maps.LatLng(41.850033,-87.6500523);
+    var mapOtions = {
+        zoom: 7,
+        center: chicago
+    }
+    directionsMap = new google.maps.Map(document.getElementById("directions-canvas"), mapOtions);
+    directionsDisplay.setMap(directionsMap);
+    calcRoute();
+}
 
-
+function calcRoute() {
+    var start = new google.maps.LatLng(41.850033,-87.6500523);
+    var end = new google.maps.LatLng(41.850033,-87.7000523)
+    var request = {
+        origin: start,
+        destination: end,
+        travelMode: google.maps.TravelMode.DRIVING
+    };
+    directionsService.route(request, function(result, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(result);
+        }
+    });
+}

@@ -36,7 +36,7 @@ body {
 }
 
 /*********** STYLING FOR DIRECTIONS.HTML ***********/
-#directions-map {
+#directions-map, #directions-canvas {
     height: 100%;
     width: 100%;
 }

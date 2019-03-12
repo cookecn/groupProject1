@@ -19,11 +19,12 @@
 </head>
 <body>
     <div id="directions-map"></div>
-    
+    <div id="directions-canvas"></div>
     
     <!-- Link to JS file -->
     <script src="map.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4&callback=initMap" async defer>
+     
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4&callback=getDirections" async defer>
     google.maps.event.addDomListener(window, "load", initialize);
     </script>
     
