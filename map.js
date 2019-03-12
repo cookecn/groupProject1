@@ -175,23 +175,22 @@ function addMarker(coords) {
 }
 
 // ********** DISTANCE API **********
-// // Set origin (current location)
-// var origin = new google.maps.LatLng(35.9828,-86.5186);
-// // Set destination (trail selected)
-// var destination = new googlemaps.LatLng(35.8456,-86.3903);
+function getDistance() {
+// Set origin (current location)
+var origin = new google.maps.LatLng(35.9828,-86.5186);
+// Set destination (trail selected)
+var destination = new google.maps.LatLng(35.8456,-86.3903);
 
-// var service = new google.maps.DistanceMatrixServce();
-// service.getDistranceMatrix(
-//     {
-//         origins: [origin],
-//         destinations: [destination],
-//         travelMode: "DRIVING",
-//         unitSystem: google.maps.UnitSystem.IMPERIAL,
-
-//     }
-//     )
-//     console.log("distance...",service)
-
+var service = new google.maps.DistanceMatrixService();
+service.getDistanceMatrix(
+    {
+        origins: [origin],
+        destinations: [destination],
+        travelMode: "DRIVING",
+        unitSystem: google.maps.UnitSystem.IMPERIAL,
+    });
+    console.log("distance...",service)
+}
 
 
 // ********* DIRECTIONS API **********
@@ -227,3 +226,9 @@ function calcRoute() {
     });
 }
 
+// ******** CODE FOR API CALLBACK FUNCTION IN HTML ***************
+function initialize() {
+    getDistance();
+    getDirections();
+
+}
