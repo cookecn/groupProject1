@@ -34,3 +34,9 @@ body {
     width: 112px;
     max-height: 4.75rem;
 }
+
+/*********** STYLING FOR DIRECTIONS.HTML ***********/
+#directions-canvas, #directions-steps {
+    height: 50%;
+    width: 100%;
+}
