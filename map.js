@@ -83,6 +83,10 @@ function getTrails() {
         var numberOfTrails = response.trails.length;
         console.log(response);
         console.log("# of trails...",numberOfTrails);
+        var blankImage = response.trails[1].imgSqSmall;
+        var blankImageTest = blankImage === "";
+        console.log("is a blank image...",blankImageTest);
+
         newTable();
         // var trailImage = response.trails[0].imgSqSmall;
         // console.log("trailImage...",trailImage);
@@ -92,7 +96,11 @@ function getTrails() {
             var trailRating = response.trails[i].stars;
             var trailDifficulty = response.trails[i].difficulty;
             var trailCondition = response.trails[i].conditionStatus;
-            addRow(trailImage,trailName,trailRating,trailDifficulty,trailCondition);
+            if (trailImage === "") {
+                var placeHolderImage = 'images/trailplaceholder.jpg'
+                addRow(placeHolderImage,trailName,trailRating,trailDifficulty,trailCondition);
+                }
+                addRow(trailImage,trailName,trailRating,trailDifficulty,trailCondition);
         }
 })}
 
@@ -112,7 +120,6 @@ function newTable() {
     var newImageHeader = $("<th>");
     $(newImageHeader).attr("class","tableHeader")
     $(newImageHeader).attr("id","table-image-header")
-    // $(newImageHeader).text();
     $(tableHeaderRow).append(newImageHeader);
 
     var newNameHeader = $("<th>");
@@ -148,8 +155,10 @@ function addRow(newImage,newName,newRating,newDifficulty,newConditionStatus) {
     // Add trail image to table row
     var trailImage = $("<td>");
     trailImage.attr("class","trailImage");
+    var trailImageElement = $("<img>")
+    $(trailImageElement).attr("src",newImage);
+    $(trailImage).append(trailImageElement);
     $(newRow).append(trailImage);
-    $(trailImage).append(newImage);
 
     // Add Trail Name to table row
     var trailName = $("<td>");
