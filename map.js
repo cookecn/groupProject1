@@ -145,7 +145,6 @@ $("#find-hike-button").click(function() {
 });
 
 // **************************************************
-// Directons
 // https://developers.google.com/maps/documentation/javascript/tutorial
 // Google API Key: AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4
 
@@ -161,13 +160,10 @@ function initMap(){
     }
 // New map
 map = new google.maps.Map(document.getElementById('directions-map'), options); 
-
 // Add marker for User's current location
 addMarker({lat:35.9828,lng:-86.5186});
-
 // Add marker for trail selected
 addMarker({lat:35.8456,lng:-86.3903})
-
 // Function to add new markers on map
 function addMarker(coords) {
     new google.maps.Marker({
@@ -197,7 +193,8 @@ function addMarker(coords) {
 //     console.log("distance...",service)
 
 
-// ********** DIRECTIONS API **********
+
+// ********* DIRECTIONS API **********
 // TO-DO: "center", "start", and "end" are still hardcoded- replace values w/ userLocation and trail selected ******
 var directionsDisplay;
 var directionsService;
@@ -229,3 +226,4 @@ function calcRoute() {
         }
     });
 }
+
