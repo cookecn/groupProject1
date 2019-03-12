@@ -211,6 +211,7 @@ function getDirections() {
     }
     directionsMap = new google.maps.Map(document.getElementById("directions-canvas"), mapOtions);
     directionsDisplay.setMap(directionsMap);
+    directionsDisplay.setPanel(document.getElementById("directions-steps"));
     calcRoute();
 }
 
