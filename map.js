@@ -82,14 +82,7 @@ function getTrails() {
     }).then(function (response) {
         var numberOfTrails = response.trails.length;
         console.log(response);
-        console.log("# of trails...",numberOfTrails);
-        var blankImage = response.trails[1].imgSqSmall;
-        var blankImageTest = blankImage === "";
-        console.log("is a blank image...",blankImageTest);
-
         newTable();
-        // var trailImage = response.trails[0].imgSqSmall;
-        // console.log("trailImage...",trailImage);
         for (i=0; i<numberOfTrails; i++) {
             var trailImage = response.trails[i].imgSqSmall;
             var trailName = response.trails[i].name;
@@ -99,8 +92,9 @@ function getTrails() {
             if (trailImage === "") {
                 var placeHolderImage = 'images/trailplaceholder.jpg'
                 addRow(placeHolderImage,trailName,trailRating,trailDifficulty,trailCondition);
+                } else {
+                    addRow(trailImage,trailName,trailRating,trailDifficulty,trailCondition);
                 }
-                addRow(trailImage,trailName,trailRating,trailDifficulty,trailCondition);
         }
 })}
 
@@ -188,5 +182,6 @@ function addRow(newImage,newName,newRating,newDifficulty,newConditionStatus) {
 // **************************************************
 // On click of "Find a Hike Near Me: Search" button
 $("#find-hike-button").click(function() {
+    $("#table-body").empty(); // Empty tabe-body to prevent multiple button clicks from re-displaying table data
     getTrails();
 });
