@@ -17,7 +17,8 @@ function getUserIPLocation() {
         userIPLatitude = response.latitude;
         userIPLongitude = response.longitude;
         console.log(response);
-        console.log(userLongitude);
+        console.log("Lat: ",userIPLatitude);
+        console.log("Long: ",userIPLongitude);
 })}
 // Call function
 getUserIPLocation();
@@ -145,5 +146,26 @@ $("#find-hike-button").click(function() {
 
 // **************************************************
 // Directons
-// https://www.mapquestapi.com/d irections/v2/route?key=KEY&from=Denver%2C+CO&to=Boulder%2C+CO&outFormat=json&ambiguities=ignore&routeType=fastest&doReverseGeocode=false&enhancedNarrative=false&avoidTimedConditions=false
-// API Docs @ https://developer.mapquest.com/documentation/common/forming-locations/
+// https://developers.google.com/maps/documentation/javascript/tutorial
+// Google API Key: AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4
+
+var map;
+function initMap(){
+    // Map otions
+    var options = {
+    // userCurrentLocation = {
+        //     lat: 35.8456,
+        //     long: -86.3903
+        // },
+        center: {lat:35.8456,lng:-86.3903},
+        zoom:13,
+    }
+// New map
+map = new google.maps.Map(document.getElementById('directions-map'), options); 
+// Add marker for current location
+var currentLocationMarker = new google.maps.Marker({
+    position:{lat:35.8456,lng:-86.3903},
+    map:map,
+    // icon:'https://static.thenounproject.com/png/19328-200.png'
+});
+};

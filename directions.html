@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>UHike - Find your trail</title>
+    <!--Link jQuery-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+    <!-- Link SemanticUI CSS -->
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css' />
+    <!-- Link Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!--Link Firebase-->
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script> -->
+    <!--Link mapbox-->
+    <!-- <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script> -->
+    <!-- <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' /> -->
+</head>
+<body>
+    <div id="directions-map"></div>
+    
+    
+    <!-- Link to JS file -->
+    <script src="map.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4&callback=initMap" async defer>
+    google.maps.event.addDomListener(window, "load", initialize);
+    </script>
+    
+</body>
+</html>
