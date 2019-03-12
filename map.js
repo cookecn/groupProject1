@@ -158,14 +158,27 @@ function initMap(){
         //     long: -86.3903
         // },
         center: {lat:35.8456,lng:-86.3903},
-        zoom:13,
+        zoom:10,
     }
 // New map
 map = new google.maps.Map(document.getElementById('directions-map'), options); 
-// Add marker for current location
-var currentLocationMarker = new google.maps.Marker({
-    position:{lat:35.8456,lng:-86.3903},
-    map:map,
-    // icon:'https://static.thenounproject.com/png/19328-200.png'
-});
+
+// Add marker for User's current location
+addMarker({lat:35.9828,lng:-86.5186});
+
+// Add marker for trail selected
+addMarker({lat:35.8456,lng:-86.3903})
+
+// Function to add new markers on map
+function addMarker(coords) {
+    var currentLocationMarker = new google.maps.Marker({
+        position:coords,
+        map:map,
+        icon:'images/hiker-icon.png'
+    });
+}
 };
+
+
+
+
