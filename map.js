@@ -29,13 +29,12 @@ function getUserIPLocation() {
 // getUserIPLocation();
 
 // **************************************************
-
+getUserIPLocation();
 // *** TO-DO: Update function to pull User's lat & long; currently hard-coded
 function getTrails() {
     var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
     getUserIPLocation();
-    // var userLatitude = userIPLatitude;
-    // var userLongitude = userIPLongitude;
+    console.log(userLatitude);
     var maxDistance = "50" // Max distance in miles, default = 30, max = 200
     var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + userLatitude + "&lon=" + userLongitude + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
     $.ajax({
@@ -52,7 +51,7 @@ function getTrails() {
             var trailDifficulty = response.trails[i].difficulty;
             var trailCondition = response.trails[i].conditionStatus;
             var trailLatitude = response.trails[i].latitude;
-            var trailLongitude = resonse.trails[i].longitude;
+            var trailLongitude = response.trails[i].longitude;
             if (trailImage === "") {
                 var placeHolderImage = 'images/trailplaceholder.jpg'
                 addRow(placeHolderImage, trailName, trailRating, trailDifficulty, trailCondition);
@@ -62,7 +61,7 @@ function getTrails() {
         }
     })
 }
-getTrails();
+// getTrails();
 
 // **************************************************
 // Function to add trail data to page
