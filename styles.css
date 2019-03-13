@@ -5,6 +5,7 @@
     overflow: hidden;
     left: 0;
     right: 0;
+    z-index: -1000;
 }
 
 html,
@@ -33,6 +34,10 @@ body {
 #logo {
     width: 112px;
     max-height: 4.75rem;
+}
+
+table {
+    background: white;
 }
 
 /*********** STYLING FOR DIRECTIONS.HTML ***********/

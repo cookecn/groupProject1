@@ -8,7 +8,7 @@ var destinationLongitude;
 // **************************************************
 // IPGeolocation API (used to get geolocation of IP accessing the site)
 // Documentation @ https://ipgeolocation.io/documentation/ip-geolocation-api-201812061140
-
+getUserIPLocation();
 function getUserIPLocation() {
     var ipGeoLocationAPIKey = "13254077d97f4249a0a6d6fd72053172";
     var queryURL = "https://api.ipgeolocation.io/ipgeo?apiKey=" + ipGeoLocationAPIKey + "&fields=geo";
@@ -24,16 +24,15 @@ function getUserIPLocation() {
         console.log("Long: ", userLongitude);
         getDirections();
     })
+
 }
 // Call function
 // getUserIPLocation();
 
 // **************************************************
-getUserIPLocation();
 // *** TO-DO: Update function to pull User's lat & long; currently hard-coded
 function getTrails() {
     var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
-    getUserIPLocation();
     console.log(userLatitude);
     var maxDistance = "50" // Max distance in miles, default = 30, max = 200
     var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + userLatitude + "&lon=" + userLongitude + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
@@ -45,6 +44,7 @@ function getTrails() {
         console.log(response);
         newTable();
         for (i = 0; i < numberOfTrails; i++) {
+            var trailNum = [i];
             var trailImage = response.trails[i].imgSqSmall;
             var trailName = response.trails[i].name;
             var trailRating = response.trails[i].stars;
@@ -56,12 +56,11 @@ function getTrails() {
                 var placeHolderImage = 'images/trailplaceholder.jpg'
                 addRow(placeHolderImage, trailName, trailRating, trailDifficulty, trailCondition);
             } else {
-                addRow(trailImage, trailName, trailRating, trailDifficulty, trailCondition);
+                addRow(trailNum, trailLatitude, trailLongitude, trailImage, trailName, trailRating, trailDifficulty, trailCondition);
             }
         }
     })
 }
-// getTrails();
 
 // **************************************************
 // Function to add trail data to page
@@ -105,9 +104,14 @@ function newTable() {
     $(tableHeaderRow).append(newConditionHeader);
 }
 
-function addRow(newImage, newName, newRating, newDifficulty, newConditionStatus) {
+function addRow(newTrailNum, newTrailLat, newTrailLong, newImage, newName, newRating, newDifficulty, newConditionStatus) {
     // Add new row to table
     var newRow = $("<tr>")
+    newRow.attr("data-trailNum","trail"+newTrailNum);
+    newRow.attr("data-trailLat",newTrailLat);
+    newRow.attr("data-trailLong",newTrailLong);
+    newRow.attr("id","row"+newTrailNum);
+
     $("#results-table").append(newRow);
 
     // Add trail image to table row
@@ -141,6 +145,21 @@ function addRow(newImage, newName, newRating, newDifficulty, newConditionStatus)
     trailConditionStatus.attr("class", "trailConditionStatus");
     $(newRow).append(trailConditionStatus);
     $(trailConditionStatus).text(newConditionStatus);
+    
+    //Add select button to table row
+    var selectButton = $("<button>");
+    $(newRow).append(selectButton);
+    selectButton.attr("data-traillat",newTrailLat);
+    selectButton.attr("data-traillong",newTrailLong);
+    selectButton.attr("class","select-buttons");
+    $(selectButton).text("Select");
+
+    selectButton.click(function() {
+        console.log(this);
+        destinationLatitude = $(this).attr("data-traillat");
+        destinationLongitude = $(this).attr("data-traillong");
+        console.log("test",destinationLatitude);
+    })
 };
 
 
@@ -148,8 +167,16 @@ function addRow(newImage, newName, newRating, newDifficulty, newConditionStatus)
 // On click of "Find a Hike Near Me: Search" button
 $("#find-hike-button").click(function () {
     $("#table-body").empty(); // Empty tabe-body to prevent multiple button clicks from re-displaying table data
+    $(".segment").hide(1000);
+    $("#results-table").show(2000);
     getTrails();
 });
+
+// $(".select-buttons").click(function() {
+//     // destinationLongitude = $(this).attr("data-traillong");
+//     // destinationLatitude = $(this).attr("data-traillat");
+//     console.log("did it work...");
+// })
 
 // **************************************************
 // https://developers.google.com/maps/documentation/javascript/tutorial
@@ -158,28 +185,28 @@ $("#find-hike-button").click(function () {
 // Google Maps JavaScript API Tutorial: https://www.youtube.com/watch?v=Zxf1mnP5zcw
 // Shows how to create loop to add markers
 
-var map;
-function initMap() {
-    // Map otions
-    var options = {
-        center: { lat: 35.8456, lng: -86.3903 },
-        zoom: 10,
-    }
-    // New map
-    map = new google.maps.Map(document.getElementById('directions-map'), options);
-    // Add marker for User's current location
-    addMarker({ lat: 35.9828, lng: -86.5186 });
-    // Add marker for trail selected
-    addMarker({ lat: 35.8456, lng: -86.3903 })
-    // Function to add new markers on map
-    function addMarker(coords) {
-        new google.maps.Marker({
-            position: coords,
-            map: map,
-            icon: 'images/hiker-icon.png'
-        });
-    }
-}
+// var map;
+// function initMap() {
+//     // Map otions
+//     var options = {
+//         center: { lat: 35.8456, lng: -86.3903 },
+//         zoom: 10,
+//     }
+//     // New map
+//     map = new google.maps.Map(document.getElementById('directions-map'), options);
+//     // Add marker for User's current location
+//     addMarker({ lat: 35.9828, lng: -86.5186 });
+//     // Add marker for trail selected
+//     addMarker({ lat: 35.8456, lng: -86.3903 })
+//     // Function to add new markers on map
+//     function addMarker(coords) {
+//         new google.maps.Marker({
+//             position: coords,
+//             map: map,
+//             icon: 'images/hiker-icon.png'
+//         });
+//     }
+// }
 
 // ********** DISTANCE API **********
 // function getDistance() {
