@@ -23,8 +23,7 @@ function getUserIPLocation() {
         console.log("Lat: ", userLatitude);
         console.log("Long: ", userLongitude);
         getDirections();
-    })
-
+    });
 }
 // Call function
 // getUserIPLocation();
@@ -32,6 +31,8 @@ function getUserIPLocation() {
 // **************************************************
 // *** TO-DO: Update function to pull User's lat & long; currently hard-coded
 function getTrails() {
+    console.log('in getTrails');
+    // getUserIPLocation();
     var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
     console.log(userLatitude);
     var maxDistance = "50" // Max distance in miles, default = 30, max = 200
@@ -159,6 +160,7 @@ function addRow(newTrailNum, newTrailLat, newTrailLong, newImage, newName, newRa
         destinationLatitude = $(this).attr("data-traillat");
         destinationLongitude = $(this).attr("data-traillong");
         console.log("test",destinationLatitude);
+        getDirections(destinationLatitude, destinationLongitude);
     })
 };
 
@@ -232,23 +234,27 @@ $("#find-hike-button").click(function () {
 var directionsDisplay;
 var directionsService;
 function getDirections() {
+    // console.log("test***",lat," ...",lng);
     console.log(userLatitude, userLongitude);
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsService = new google.maps.DirectionsService();
-    var userLocation = new google.maps.LatLng(41.850033, -87.7000523);
-    var mapOtions = {
+    var userLocation = new google.maps.LatLng(userLatitude, userLongitude);
+    var mapOptions = {
         zoom: 7,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
         center: userLocation
     }
-    directionsMap = new google.maps.Map(document.getElementById("directions-canvas"), mapOtions);
+    directionsMap = new google.maps.Map(document.getElementById("directions-canvas"), mapOptions);
     directionsDisplay.setMap(directionsMap);
     directionsDisplay.setPanel(document.getElementById("directions-steps"));
     calcRoute();
 }
 
 function calcRoute() {
+    // console.log("global?",destinationLatitude);
+
     var start = new google.maps.LatLng(userLatitude, userLongitude);
-    var end = new google.maps.LatLng(41.850033, -87.7000523)
+    var end = new google.maps.LatLng(40.7128,-74.0060);
     var request = {
         origin: start,
         destination: end,
@@ -264,7 +270,9 @@ function calcRoute() {
 // ******** CODE FOR API CALLBACK FUNCTION IN HTML ***************
 function initialize() {
     getUserIPLocation();
-
+    // calcRoute();
+    getDirections();
+    console.log("successss");
     // getDistance();
     // getDirections();
 
