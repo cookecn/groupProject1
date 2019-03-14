@@ -4,8 +4,7 @@
 $('.ui.dropdown')
     .dropdown();
 
-$('.ui.rating')
-    .rating();
+
 
 var userCity;
 var userLatitude;
@@ -16,23 +15,23 @@ var destinationLongitude;
 // **************************************************
 // IPGeolocation API (used to get geolocation of IP accessing the site)
 // Documentation @ https://ipgeolocation.io/documentation/ip-geolocation-api-201812061140
-getUserIPLocation();
-function getUserIPLocation() {
-    var ipGeoLocationAPIKey = "13254077d97f4249a0a6d6fd72053172";
-    var queryURL = "https://api.ipgeolocation.io/ipgeo?apiKey=" + ipGeoLocationAPIKey + "&fields=geo";
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        userCity = response.city;
-        userLatitude = response.latitude;
-        userLongitude = response.longitude;
-        console.log(response);
-        console.log("Lat: ", userLatitude);
-        console.log("Long: ", userLongitude);
-        getDirections();
-    });
-}
+// getUserIPLocation();
+// function getUserIPLocation() {
+//     var ipGeoLocationAPIKey = "13254077d97f4249a0a6d6fd72053172";
+//     var queryURL = "https://api.ipgeolocation.io/ipgeo?apiKey=" + ipGeoLocationAPIKey + "&fields=geo";
+//     $.ajax({
+//         url: queryURL,
+//         method: "GET"
+//     }).then(function (response) {
+//         userCity = response.city;
+//         userLatitude = response.latitude;
+//         userLongitude = response.longitude;
+//         console.log(response);
+//         console.log("Lat: ", userLatitude);
+//         console.log("Long: ", userLongitude);
+//         getDirections();
+//     });
+// }
 
 // Call function
 // getUserIPLocation();
@@ -40,28 +39,31 @@ function getUserIPLocation() {
 // **************************************************
 // *** TO-DO: Update function to pull User's lat & long; currently hard-coded
 function getTrails() {
-    console.log('in getTrails');
     // getUserIPLocation();
     var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
-  
+
     // getUserIPLocation();
     // var userLatitude = userIPLatitude;
     // var userLongitude = userIPLongitude;
     var maxDistance = "50" // Max distance in miles, default = 30, max = 200
-    var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + "36.144700" + "&lon=" + "-86.804050" + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
+    var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + userLatitude + "&lon=" + userLongitude + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        var numberOfTrails = response.trails.length;
-        console.log(response);
+        var numberOfTrails = 9;
+
         for (i = 0; i < numberOfTrails; i++) {
             createNewCard(response);
+            console.log(response);
+
         }
         // SemanticUI Hover Action has to be called here to work
         $('.special.cards .image').dimmer({
             on: 'hover'
         });
+        $('.ui.rating')
+            .rating();
     })
 }
 
@@ -78,17 +80,11 @@ function createNewCard(response) {
 // On click of "Find a Hike Near Me: Search" button
 $("#find-hike-button").click(function () {
     $(".segment").hide(1000);
-    $("#results-table").show(2000);
 
     getTrails();
     $('#selection-box').hide();
 });
 
-// $(".select-buttons").click(function() {
-//     // destinationLongitude = $(this).attr("data-traillong");
-//     // destinationLatitude = $(this).attr("data-traillat");
-//     console.log("did it work...");
-// })
 
 // **************************************************
 // https://developers.google.com/maps/documentation/javascript/tutorial
@@ -98,41 +94,41 @@ $("#find-hike-button").click(function () {
 // Shows how to create loop to add markers
 
 
-var map;
+// var map;
 
-function initMap() {
-    // Map otions
-    var options = {
-        center: {
-            lat: 35.8456,
-            lng: -86.3903
-        },
-        zoom: 10,
-    }
-    // New map
-    map = new google.maps.Map(document.getElementById('directions-map'), options);
+// function initMap() {
+//     // Map otions
+//     var options = {
+//         center: {
+//             lat: 35.8456,
+//             lng: -86.3903
+//         },
+//         zoom: 10,
+//     }
+//     // New map
+//     map = new google.maps.Map(document.getElementById('directions-map'), options);
 
-    // Add marker for User's current location
-    addMarker({
-        lat: 35.9828,
-        lng: -86.5186
-    });
+//     // Add marker for User's current location
+//     addMarker({
+//         lat: 35.9828,
+//         lng: -86.5186
+//     });
 
-    // Add marker for trail selected
-    addMarker({
-        lat: 35.8456,
-        lng: -86.3903
-    })
+//     // Add marker for trail selected
+//     addMarker({
+//         lat: 35.8456,
+//         lng: -86.3903
+//     })
 
-    // Function to add new markers on map
-    function addMarker(coords) {
-        new google.maps.Marker({
-            position: coords,
-            map: map,
-            icon: 'images/hiker-icon.png'
-        });
-    }
-}
+//     // Function to add new markers on map
+//     function addMarker(coords) {
+//         new google.maps.Marker({
+//             position: coords,
+//             map: map,
+//             icon: 'images/hiker-icon.png'
+//         });
+//     }
+// }
 
 // ********** DISTANCE API **********
 // function getDistance() {
@@ -163,7 +159,7 @@ function getDirections() {
     console.log(userLatitude, userLongitude);
     directionsDisplay = new google.maps.DirectionsRenderer();
     directionsService = new google.maps.DirectionsService();
-    
+
     var userLocation = new google.maps.LatLng(userLatitude, userLongitude);
     var mapOptions = {
 
@@ -181,7 +177,7 @@ function calcRoute() {
     // console.log("global?",destinationLatitude);
 
     var start = new google.maps.LatLng(userLatitude, userLongitude);
-    var end = new google.maps.LatLng(40.7128,-74.0060);
+    var end = new google.maps.LatLng(40.7128, -74.0060);
 
     var request = {
         origin: start,
@@ -209,11 +205,8 @@ function initialize() {
 
 var myObj = { //object
     test: 4,
-    test2: function() { //method
+    test2: function () { //method
         test = 5;
         console.log(test);
     }
 }
-
-myObj.test2()
-
