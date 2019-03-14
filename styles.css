@@ -5,6 +5,7 @@
     overflow: hidden;
     left: 0;
     right: 0;
+    z-index: -1000;
 }
 
 html,
@@ -49,9 +50,15 @@ body {
     max-height: 4.75rem;
 }
 
+table {
+    background: white;
+}
+
 /*********** STYLING FOR DIRECTIONS.HTML ***********/
 #directions-canvas,
 #directions-steps {
     height: 50%;
     width: 100%;
 }
+
+/* Link to Example CSS https://developers.google.com/maps/documentation/javascript/examples/directions-panel */
