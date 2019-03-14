@@ -1,8 +1,5 @@
 // *************************************************
 //Semantic UI Animation Scripts
-$('.special.cards .image').dimmer({
-    on: 'hover'
-});
 
 $('.ui.dropdown')
     .dropdown();
@@ -53,104 +50,13 @@ function getTrails() {
         console.log(response);
         for (i = 0; i < numberOfTrails; i++) {
             createNewCard(response);
-            // var trailImage = response.trails[i].imgSqSmall;
-            // var trailName = response.trails[i].name;
-            // var trailRating = response.trails[i].stars;
-            // var trailDifficulty = response.trails[i].difficulty;
-            // var trailCondition = response.trails[i].conditionStatus;
-            // if (trailImage === "") {
-            //     var placeHolderImage = 'images/trailplaceholder.jpg'
-            //     addRow(placeHolderImage, trailName, trailRating, trailDifficulty, trailCondition);
-            // } else {
-            //     addRow(trailImage, trailName, trailRating, trailDifficulty, trailCondition);
-            // }
         }
+        // SemanticUI Hover Action has to be called here to work
+        $('.special.cards .image').dimmer({
+            on: 'hover'
+        });
     })
 }
-
-// $('#test-button').on('click', function () {
-//     getTrails();
-// });
-
-// **************************************************
-// Function to add trail data to page
-// Add new table to page
-// function newTable() {
-//     var newTableElement = $("<table>");
-//     $(newTableElement).attr("id", "results-table");
-//     $("#table-body").append(newTableElement);
-
-//     var tableHeaderRow = $("<tr>");
-//     $(tableHeaderRow).attr("id", "table-header-row");
-//     $(newTableElement).append(tableHeaderRow);
-
-//     var newImageHeader = $("<th>");
-//     $(newImageHeader).attr("class", "tableHeader")
-//     $(newImageHeader).attr("id", "table-image-header")
-//     $(tableHeaderRow).append(newImageHeader);
-
-//     var newNameHeader = $("<th>");
-//     $(newNameHeader).attr("class", "tableHeader");
-//     $(newNameHeader).attr("id", "table-name-header");
-//     $(newNameHeader).text("Trail Name");
-//     $(tableHeaderRow).append(newNameHeader);
-
-//     var newRatingHeader = $("<th>");
-//     $(newRatingHeader).attr("class", "tableHeader");
-//     $(newRatingHeader).attr("id", "table-rating-header");
-//     $(newRatingHeader).text("Rating");
-//     $(tableHeaderRow).append(newRatingHeader);
-
-//     var newDifficultyHeader = $("<th>");
-//     $(newDifficultyHeader).attr("class", "tableHeader");
-//     $(newDifficultyHeader).attr("id", "table-difficulty-header");
-//     $(newDifficultyHeader).text("Difficulty");
-//     $(tableHeaderRow).append(newDifficultyHeader);
-
-//     var newConditionHeader = $("<th>");
-//     $(newConditionHeader).attr("class", "tableHeader");
-//     $(newConditionHeader).attr("id", "table-condition-header");
-//     $(newConditionHeader).text("Current Condition");
-//     $(tableHeaderRow).append(newConditionHeader);
-// }
-
-// function addRow(newImage, newName, newRating, newDifficulty, newConditionStatus) {
-//     // Add new row to table
-//     var newRow = $("<tr>")
-//     $("#results-table").append(newRow);
-
-//     // Add trail image to table row
-//     var trailImage = $("<td>");
-//     trailImage.attr("class", "trailImage");
-//     var trailImageElement = $("<img>")
-//     $(trailImageElement).attr("src", newImage);
-//     $(trailImage).append(trailImageElement);
-//     $(newRow).append(trailImage);
-
-//     // Add Trail Name to table row
-//     var trailName = $("<td>");
-//     trailName.attr("class", "trailName");
-//     $(newRow).append(trailName);
-//     $(trailName).text(newName);
-
-//     // Add Trail Rating to table row
-//     var trailRating = $("<td>");
-//     trailRating.attr("class", "trailRating");
-//     $(newRow).append(trailRating);
-//     $(trailRating).text(newRating);
-
-//     // Add Trail Difficulty to table row
-//     var trailDifficulty = $("<td>");
-//     trailDifficulty.attr("class", "trailDifficulty");
-//     $(newRow).append(trailDifficulty);
-//     $(trailDifficulty).text(newDifficulty);
-
-//     // Add Trail Condition Status to table row
-//     var trailConditionStatus = $("<td>");
-//     trailConditionStatus.attr("class", "trailConditionStatus");
-//     $(newRow).append(trailConditionStatus);
-//     $(trailConditionStatus).text(newConditionStatus);
-// };
 
 // Add Cards
 function createNewCard(response) {
@@ -165,7 +71,6 @@ function createNewCard(response) {
 // **************************************************
 // On click of "Find a Hike Near Me: Search" button
 $("#find-hike-button").click(function () {
-    // $("#table-body").empty(); // Empty tabe-body to prevent multiple button clicks from re-displaying table data
     getTrails();
     $('#selection-box').hide();
 });
