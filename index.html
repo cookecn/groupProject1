@@ -22,71 +22,77 @@
 
 <body>
     <!-- Navbar -->
-    <div class="ui menu">
-        <div class="header item">
-            <img src="images/route-icon.png">
-        </div>
-        <h1 class="header item">U-Hike</h1>
+    <div class="ui container">
+        <div class="ui menu">
+            <div class="header item">
+                <img src="images/route-icon.png">
+            </div>
+            <h1 class="header item">U-Hike</h1>
 
-        <div class="right menu">
-            <button class="ui item icon button">
-                <i class="crosshairs icon"></i>
-            </button>
-        </div>
-    </div>
-
-    <!-- Spacer DIV -->
-    <!-- <div class="spacer"></div> -->
-
-    <!-- Initial Selection Box -->
-    <div class="ui placeholder segment">
-        <div class="ui two column stackable center aligned grid">
-            <div class="ui vertical divider">Or</div>
-            <div class="middle aligned row">
-                <div class="column">
-                    <div class="ui icon header">
-                        <i class="search icon"></i>
-                        Browse Hikes by...
-                    </div>
-                    <div class="field">
-                        <div class="ui blue labeled icon top right pointing dropdown button">
-                            <i class="angle double up icon"></i>
-                            <span class="text">Difficulty</span>
-                            <div class="menu">
-                                <div class="item">
-                                    <div class="ui green empty circular label"></div>
-                                    Easy
-                                </div>
-                                <div class="item">
-                                    <div class="ui yellow empty circular label"></div>
-                                    Medium
-                                </div>
-                                <div class="item">
-                                    <div class="ui red empty circular label"></div>
-                                    Hard
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="ui icon header">
-                        <i class="map icon"></i>
-                        Find a Hike Near Me
-                    </div>
-                    <div class="ui primary button" id="find-hike-button">
-                        Search
-                    </div>
-                </div>
+            <div class="right menu">
+                <button class="ui item icon button">
+                    <i class="crosshairs icon"></i>
+                </button>
             </div>
         </div>
-    </div>
-    <div id="table-body">
-
     </div>
 
     <!-- Map Background -->
     <div id='map'></div>
+
+
+
+    <!-- Container -->
+
+    <div class="ui container" id="container">
+        <!-- Initial Selection Box -->
+        <div class="ui placeholder raised segment" id="selection-box">
+            <div class="ui two column stackable center aligned grid">
+                <div class="ui vertical divider">Or</div>
+                <div class="middle aligned row">
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="search icon"></i>
+                            Browse Hikes by...
+                        </div>
+                        <div class="field">
+                            <div class="ui blue labeled icon top right pointing dropdown button">
+                                <i class="angle double up icon"></i>
+                                <span class="text">Difficulty</span>
+                                <div class="menu">
+                                    <div class="item">
+                                        <div class="ui green empty circular label"></div>
+                                        Easy
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui yellow empty circular label"></div>
+                                        Medium
+                                    </div>
+                                    <div class="item">
+                                        <div class="ui red empty circular label"></div>
+                                        Hard
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui icon header">
+                            <i class="map icon"></i>
+                            Find a Hike Near Me
+                        </div>
+                        <div class="ui primary button" id="find-hike-button">
+                            Search
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Section -->
+        <div class="ui special three cards" id="card-section">
+        </div>
+    </div>
 
 
     <!-- Link SemanticUI JS -->
