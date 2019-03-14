@@ -4,8 +4,7 @@
 $('.ui.dropdown')
     .dropdown();
 
-$('.ui.rating')
-    .rating();
+
 
 var userCity;
 var userLatitude;
@@ -57,11 +56,16 @@ function getTrails() {
 
         for (i = 0; i < numberOfTrails; i++) {
             createNewCard(response);
+            console.log(response);
+
         }
         // SemanticUI Hover Action has to be called here to work
         $('.special.cards .image').dimmer({
             on: 'hover'
         });
+
+        $('.ui.rating')
+            .rating();
     })
 }
 
