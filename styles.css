@@ -24,10 +24,11 @@ body {
 
 #container {
     position: relative;
-    top: 27rem;
+    top: 24rem;
     margin: 2rem;
     z-index: 1;
     overflow: scroll;
+    max-height: 23rem;
 }
 
 #card-display {
