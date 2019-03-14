@@ -1,6 +1,6 @@
 #map {
     height: 100%;
-    position: fixed !important;
+    position: absolute !important;
     top: 0;
     overflow: hidden;
     left: 0;
@@ -17,18 +17,32 @@ body {
 
 .ui.menu {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     height: 60px;
-    margin: 0;
-    margin: 2rem;
+
 }
 
-
-
-.ui.segment {
+#container {
+    position: relative;
     top: 27rem;
     margin: 2rem;
-    z-index: 2;
+    z-index: 1;
+    overflow: scroll;
+}
+
+#card-display {
+    display: none;
+}
+
+.backgroundimg {
+    height: 168px;
+    width: 100%;
+    background-size: cover;
+    background-position: 50%;
+}
+
+.ui.segment {
+    z-index: 1;
 }
 
 #logo {
@@ -41,7 +55,8 @@ table {
 }
 
 /*********** STYLING FOR DIRECTIONS.HTML ***********/
-#directions-canvas, #directions-steps {
+#directions-canvas,
+#directions-steps {
     height: 50%;
     width: 100%;
 }
