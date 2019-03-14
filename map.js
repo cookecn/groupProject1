@@ -39,7 +39,6 @@ var destinationLongitude;
 // **************************************************
 // *** TO-DO: Update function to pull User's lat & long; currently hard-coded
 function getTrails() {
-    console.log('in getTrails');
     // getUserIPLocation();
     var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
 
@@ -52,10 +51,12 @@ function getTrails() {
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        var numberOfTrails = response.trails.length;
+        var numberOfTrails = 9;
 
         for (i = 0; i < numberOfTrails; i++) {
             createNewCard(response);
+            console.log(response);
+
         }
         // SemanticUI Hover Action has to be called here to work
         $('.special.cards .image').dimmer({
