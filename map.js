@@ -4,8 +4,7 @@
 $('.ui.dropdown')
     .dropdown();
 
-$('.ui.rating')
-    .rating();
+
 
 var userCity;
 var userLatitude;
@@ -48,7 +47,7 @@ function getTrails() {
     // var userLatitude = userIPLatitude;
     // var userLongitude = userIPLongitude;
     var maxDistance = "50" // Max distance in miles, default = 30, max = 200
-    var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + "36.144700" + "&lon=" + "-86.804050" + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
+    var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + userLatitude + "&lon=" + userLongitude + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
     $.ajax({
         url: queryURL,
         method: "GET"
@@ -62,6 +61,8 @@ function getTrails() {
         $('.special.cards .image').dimmer({
             on: 'hover'
         });
+        $('.ui.rating')
+            .rating();
     })
 }
 

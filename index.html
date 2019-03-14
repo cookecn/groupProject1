@@ -127,6 +127,8 @@
                         lng: position.coords.longitude
                     };
 
+                    userLatitude = pos.lat;
+                    userLongitude = pos.lng;
 
                     map.setCenter(pos);
                     var marker = new google.maps.Marker({
