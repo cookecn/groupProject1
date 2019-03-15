@@ -1,6 +1,6 @@
 // Declar global variables
-var map;
-var infoWindow;
+var map, infoWindow;
+// var infoWindow;
 var userLatitude;
 var userLongitude;
 var trailLatitude;
@@ -53,8 +53,9 @@ $("#find-hike-button").click(function () {
 $(document).on('click', '.button.trail-button', function () {
     trailLatitude = $(this).data('lat');
     trailLongitude = $(this).data('lng');
+    var directionsURL = "https://www.google.com/maps/dir/"+userLatitude+","+userLongitude+"/"+trailLatitude+",+"+trailLongitude;
+    window.open(directionsURL,"_blank");
 });
-
 
 // **************************************************
 // Setup map on page load
