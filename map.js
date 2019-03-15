@@ -1,11 +1,10 @@
-
 // Declar global variables
 var map;
 var infoWindow;
 var userLatitude;
 var userLongitude;
-var destinationLatitude;
-var destinationLongitude;
+var trailLatitude;
+var trailLongitude;
 
 function getTrails() {
     var hikingProjectAPIKey = "200428466-2a448b50cc7ceff93b323bcffe658d58";
@@ -18,7 +17,6 @@ function getTrails() {
         var numberOfTrails = 9;
         for (i = 0; i < numberOfTrails; i++) {
             createNewCard(response);
-            console.log(response);
         }
         // SemanticUI Hover Action has to be called here to work
         $('.special.cards .image').dimmer({
@@ -26,7 +24,7 @@ function getTrails() {
         });
         $('.ui.rating')
             .rating();
-    })
+    });
 }
 
 // **************************************************
@@ -37,7 +35,8 @@ $('.ui.dropdown')
 // **************************************************
 // Add Cards
 function createNewCard(response) {
-    var newCard = $("<div class='red raised card' data-lat='" + response.trails[i].latitude + "' data-long='" + response.trails[i].longitude + "'><div class='blurring dimmable image'><div class='ui dimmer'><div class='content'><div class='center'><div class='ui inverted button'>Get Directions</div></div></div></div><div class='backgroundimg image' style='background-image: url(" + response.trails[i].imgMedium + ")'></div></div><div class='content'><h3>" + response.trails[i].name + "</h3><div class='meta'><span class='description'>" + response.trails[i].summary + "</span></div></div><div class='extra content'>Rating: <div class='ui star rating' data-rating='" + Math.round(response.trails[i].stars) + "'></div></div></div>");
+    var newCard = $("<div class='red raised card'><div class='blurring dimmable image'><div class='ui dimmer'><div class='content'><div class='center'><div class='ui inverted button trail-button' data-lat='" + response.trails[i].latitude + "' data-lng='" + response.trails[i].longitude + "'>Get Directions</div></div></div></div><div class='backgroundimg image' style='background-image: url(" + response.trails[i].imgMedium + ")'></div></div><div class='content'><h3>" + response.trails[i].name + "</h3><div class='meta'><span class='description'>" + response.trails[i].summary + "</span></div></div><div class='extra content'>Rating: <div class='ui star rating' data-rating='" + Math.round(response.trails[i].stars) + "'></div></div></div>");
+
     $("#card-section").append(newCard);
 }
 
@@ -48,6 +47,14 @@ $("#find-hike-button").click(function () {
     getTrails();
     $('#selection-box').hide();
 });
+
+// **************************************************
+// On click of "Get Directions" button
+$(document).on('click', '.button.trail-button', function () {
+    trailLatitude = $(this).data('lat');
+    trailLongitude = $(this).data('lng');
+});
+
 
 // **************************************************
 // Setup map on page load
