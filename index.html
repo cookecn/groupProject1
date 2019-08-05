@@ -90,9 +90,16 @@
         </div>
 
         <!-- Card Section -->
-        <div class="slider slider1">
-            <div class="slides hike-section">
-                
+        <div class="glide">
+            <div class="glide__track hike-section" data-glide-el="track">
+                <ul class="glide__slides">
+
+                </ul>                
+            </div>
+
+            <div class="glide__arrows" data-glide-el="controls">
+                <button class="glide__arrow glide__arrow--left" data-glide-dir="<">prev</button>
+                <button class="glide__arrow glide__arrow--right" data-glide-dir=">">next</button>
             </div>
         </div>
         
@@ -104,10 +111,11 @@
     
     <!--Link jQuery-->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
-    <!--Link Glide JS -->
-    <script src="http://cdn.jsdelivr.net/jquery.glide/1.0.6/jquery.glide.min.js"></script>
     <!-- Link SemanticUI JS -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js'></script>
+    <!--Link Glide JS -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.3.0/glide.js'></script>
+    
     <!-- Link to JS file -->
     <script src="map.js"></script>
     <!-- Script for Google Maps Load in -->

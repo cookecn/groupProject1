@@ -42,8 +42,11 @@ body {
     /* overflow: scroll; */
 }
 
-#card-display {
-    display: none;
+.hike-section {
+    width: 100% !important;
+    background-color: rgb(105,105,105, 0.2);
+    padding: 20px;
+    border-radius: 1%;
 }
 
 .backgroundimg {

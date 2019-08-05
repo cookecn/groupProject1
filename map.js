@@ -7,12 +7,12 @@ $('.ui.dropdown')
 $('.ui.rating')
     .rating();
 
-$('.slider').glide({
+new Glide('.glide', {
+    type: 'slider',
     autoplay: false,
-    arrowsWrapperClass: 'slider-arrows',
-    arrowRightText: '',
-    arrowLeftText: ''
-    });
+    arrows: 'body',
+}).mount()
+
 
 var userCity;
 var userLatitude;
@@ -73,9 +73,12 @@ function getTrails() {
 
 // Add Cards
 function createNewCard(response) {
-    var newCard = $("<div class='red raised card slide-item' data-lat='" + response.trails[i].latitude + "' data-long='" + response.trails[i].longitude + "'><div class='blurring dimmable image'><div class='ui dimmer'><div class='content'><div class='center'><div class='ui inverted button'>Get Directions</div></div></div></div><div class='backgroundimg image' style='background-image: url(" + response.trails[i].imgMedium + ")'></div></div><div class='content'><h3>" + response.trails[i].name + "</h3><div class='meta'><span class='description'>" + response.trails[i].summary + "</span></div></div><div class='extra content'>Rating: <div class='ui star rating' data-rating='" + Math.round(response.trails[i].stars) + "'></div></div></div>");
+    let newCard = $("<ul class='glide__slides'><li class='glide__slide'><div class='red raised card slide-item item"+[i]+"' data-lat='" + response.trails[i].latitude + "' data-long='" + response.trails[i].longitude + "'><div class='blurring dimmable image'><div class='ui dimmer'><div class='content'><div class='center'><div class='ui inverted button'>Get Directions</div></div></div></div><div class='backgroundimg image' style='background-image: url(" + response.trails[i].imgMedium + ")'></div></div><div class='content'><h3>" + response.trails[i].name + "</h3><div class='meta'><span class='description'>" + response.trails[i].summary + "</span></div></div><div class='extra content'>Rating: <div class='ui star rating' data-rating='" + Math.round(response.trails[i].stars) + "'></div></div></div></li></ul>");
 
+    let testItem = $("<ul class='glide__slides'><li class='glide__slide'><h1>HELLO</h1></li></ul>") 
     $(".hike-section").append(newCard);
+    
+   
 
 }
 
