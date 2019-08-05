@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>UHike - Find your trail</title>
-    <!--Link jQuery-->
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
+  
     <!-- Link SemanticUI CSS -->
     <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css' />
     <!-- Link Stylesheet -->
@@ -21,6 +20,7 @@
 </head>
 
 <body>
+    <div id="main-container">
     <!-- Navbar -->
     <div class="ui container">
         <div class="ui menu">
@@ -90,15 +90,20 @@
         </div>
 
         <!-- Card Section -->
-        <div class="ui special three cards" id="card-section">
+        <div class="slider slider1">
+            <div class="slides hike-section">
+                
+            </div>
         </div>
+        
+        <!-- <div class="ui special three cards" id="card-section">
+        </div> -->
     </div>
 
-    <!-- Map Background -->
-
-    <div id='map'></div> 
-
-
+    </div>
+    
+    <!--Link jQuery-->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js'></script>
     <!-- Link SemanticUI JS -->
     <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.js'></script>
     <!-- Link to JS file -->
@@ -152,8 +157,8 @@
             infoWindow.open(map);
         }
     </script>
-    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4&callback=initMap"
-        async defer> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpCKTkks8wpK6Ptm4yHLGiKPGzJbQXfgo&callback=initMap"
+        async defer>
     </script>
 
 

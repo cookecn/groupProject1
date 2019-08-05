@@ -7,6 +7,13 @@ $('.ui.dropdown')
 $('.ui.rating')
     .rating();
 
+$('.slider').glide({
+    autoplay: false,
+    arrowsWrapperClass: 'slider-arrows',
+    arrowRightText: '',
+    arrowLeftText: ''
+    });
+
 var userCity;
 var userLatitude;
 var userLongitude;
@@ -67,9 +74,9 @@ function getTrails() {
 
 // Add Cards
 function createNewCard(response) {
-    var newCard = $("<div class='red raised card' data-lat='" + response.trails[i].latitude + "' data-long='" + response.trails[i].longitude + "'><div class='blurring dimmable image'><div class='ui dimmer'><div class='content'><div class='center'><div class='ui inverted button'>Get Directions</div></div></div></div><div class='backgroundimg image' style='background-image: url(" + response.trails[i].imgMedium + ")'></div></div><div class='content'><h3>" + response.trails[i].name + "</h3><div class='meta'><span class='description'>" + response.trails[i].summary + "</span></div></div><div class='extra content'>Rating: <div class='ui star rating' data-rating='" + Math.round(response.trails[i].stars) + "'></div></div></div>");
+    var newCard = $("<div class='red raised card slide-item' data-lat='" + response.trails[i].latitude + "' data-long='" + response.trails[i].longitude + "'><div class='blurring dimmable image'><div class='ui dimmer'><div class='content'><div class='center'><div class='ui inverted button'>Get Directions</div></div></div></div><div class='backgroundimg image' style='background-image: url(" + response.trails[i].imgMedium + ")'></div></div><div class='content'><h3>" + response.trails[i].name + "</h3><div class='meta'><span class='description'>" + response.trails[i].summary + "</span></div></div><div class='extra content'>Rating: <div class='ui star rating' data-rating='" + Math.round(response.trails[i].stars) + "'></div></div></div>");
 
-    $("#card-section").append(newCard);
+    $(".hike-section").append(newCard);
 
 }
 
