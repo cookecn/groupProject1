@@ -47,6 +47,7 @@ body {
     background-color: rgb(105,105,105, 0.2);
     padding: 20px;
     border-radius: 1%;
+    display: none;
 }
 
 .backgroundimg {
