@@ -12,37 +12,12 @@ $('.ui.accordion')
 
 
 var userCity;
+
 var userLatitude;
 var userLongitude;
-var destinationLatitude;
-var destinationLongitude;
+var trailLatitude;
+var trailLongitude;
 
-// **************************************************
-// IPGeolocation API (used to get geolocation of IP accessing the site)
-// Documentation @ https://ipgeolocation.io/documentation/ip-geolocation-api-201812061140
-getUserIPLocation();
-function getUserIPLocation() {
-    var ipGeoLocationAPIKey = "13254077d97f4249a0a6d6fd72053172";
-    var queryURL = "https://api.ipgeolocation.io/ipgeo?apiKey=" + ipGeoLocationAPIKey + "&fields=geo";
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        userCity = response.city;
-        userLatitude = response.latitude;
-        userLongitude = response.longitude;
-        console.log(response);
-        console.log("Lat: ", userLatitude);
-        console.log("Long: ", userLongitude);
-        getDirections();
-    });
-}
-
-// Call function
-// getUserIPLocation();
-
-// **************************************************
-// *** TO-DO: Update function to pull User's lat & long; currently hard-coded
 function getTrails() {
     // getUserIPLocation();
     var hikingProjectAPIKey = "200549915-38be137df30d5780f9f0fb77ff254499";
@@ -50,14 +25,14 @@ function getTrails() {
     // getUserIPLocation();
     // var userLatitude = userIPLatitude;
     // var userLongitude = userIPLongitude;
+
     var maxDistance = "50" // Max distance in miles, default = 30, max = 200
-    var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + "36.144700" + "&lon=" + "-86.804050" + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
+    var queryURL = "https://www.hikingproject.com/data/get-trails?lat=" + userLatitude + "&lon=" + userLongitude + "&maxDistance=" + maxDistance + "&key=" + hikingProjectAPIKey;
     $.ajax({
         url: queryURL,
         method: "GET"
     }).then(function (response) {
-        var numberOfTrails = response.trails.length;
-        console.log(response);
+        var numberOfTrails = 9;
         for (i = 0; i < numberOfTrails; i++) {
             createNewCard(response);
         }
@@ -65,7 +40,9 @@ function getTrails() {
         $('.special.cards .image').dimmer({
             on: 'hover'
         });
-    })
+        $('.ui.rating')
+            .rating();
+    });
 }
 
 function convertDifficultyLevelsToColors(response){
@@ -94,145 +71,75 @@ $(document).on('load', function(){
     $('.hike-section').hide();
 })
 
+
 // **************************************************
 // On click of "Find a Hike Near Me: Search" button
 $("#find-hike-button").click(function () {
     $(".segment").hide(1000);
     $(".hike-section").show();
+
     getTrails();
     $('#selection-box').hide();
 });
 
-// $(".select-buttons").click(function() {
-//     // destinationLongitude = $(this).attr("data-traillong");
-//     // destinationLatitude = $(this).attr("data-traillat");
-//     console.log("did it work...");
-// })
+// **************************************************
+// On click of "Get Directions" button
+$(document).on('click', '.button.trail-button', function () {
+    trailLatitude = $(this).data('lat');
+    trailLongitude = $(this).data('lng');
+    var directionsURL = "https://www.google.com/maps/dir/"+userLatitude+","+userLongitude+"/"+trailLatitude+",+"+trailLongitude;
+    window.open(directionsURL,"_blank");
+});
 
 // **************************************************
-// https://developers.google.com/maps/documentation/javascript/tutorial
-// Google API Key: AIzaSyDpotG2jYwhChLgDUnmlaSt4C1Wt2tlJM4
-
-// Google Maps JavaScript API Tutorial: https://www.youtube.com/watch?v=Zxf1mnP5zcw
-// Shows how to create loop to add markers
-
-
-var map;
-
+// Setup map on page load
 function initMap() {
-    // Map otions
-    var options = {
+    map = new google.maps.Map(document.getElementById('map'), {
         center: {
-            lat: 35.8456,
-            lng: -86.3903
+            lat: 36.144700,
+            lng: -86.804050
         },
-        zoom: 10,
-    }
-    // New map
-    map = new google.maps.Map(document.getElementById('directions-map'), options);
-
-    // Add marker for User's current location
-    addMarker({
-        lat: 35.9828,
-        lng: -86.5186
+        zoom: 14,
+        disableDefaultUI: true
     });
-
-    // Add marker for trail selected
-    addMarker({
-        lat: 35.8456,
-        lng: -86.3903
-    })
-
-    // Function to add new markers on map
-    function addMarker(coords) {
-        new google.maps.Marker({
-            position: coords,
-            map: map,
-            icon: 'images/hiker-icon.png'
+    infoWindow = new google.maps.InfoWindow;
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            userLatitude = pos.lat;
+            userLongitude = pos.lng;
+            map.setCenter(pos);
+            var marker = new google.maps.Marker({
+                position: pos,
+                map: map,
+                title: 'You are here'
+            });
+        }, function () {
+            handleLocationError(true, infoWindow, map.getCenter());
         });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
     }
 }
 
-// ********** DISTANCE API **********
-// function getDistance() {
-// // Set origin (current location)
-// var origin = new google.maps.LatLng(35.9828,-86.5186);
-// // Set destination (trail selected)
-// var destination = new google.maps.LatLng(35.8456,-86.3903);
-
-// var service = new google.maps.DistanceMatrixService();
-// service.getDistanceMatrix(
-//     {
-//         origins: [origin],
-//         destinations: [destination],
-//         travelMode: "DRIVING",
-//         unitSystem: google.maps.UnitSystem.IMPERIAL,
-//     });
-//     console.log("distance...",service)
-// }
-
-
-// ********* DIRECTIONS API **********
-// TO-DO: "center", "start", and "end" are still hardcoded- replace values w/ userLocation and trail selected ******
-var directionsDisplay;
-var directionsService;
-
-function getDirections() {
-    // console.log("test***",lat," ...",lng);
-    console.log(userLatitude, userLongitude);
-    directionsDisplay = new google.maps.DirectionsRenderer();
-    directionsService = new google.maps.DirectionsService();
-    
-    var userLocation = new google.maps.LatLng(userLatitude, userLongitude);
-    var mapOptions = {
-
-        zoom: 7,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: userLocation
-    }
-    directionsMap = new google.maps.Map(document.getElementById("directions-canvas"), mapOptions);
-    directionsDisplay.setMap(directionsMap);
-    directionsDisplay.setPanel(document.getElementById("directions-steps"));
-    calcRoute();
+// **************************************************
+// Display error if location services fails
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
 }
 
-function calcRoute() {
-    // console.log("global?",destinationLatitude);
-
-    var start = new google.maps.LatLng(userLatitude, userLongitude);
-    var end = new google.maps.LatLng(40.7128,-74.0060);
-
-    var request = {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
-    directionsService.route(request, function (result, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-            directionsDisplay.setDirections(result);
-        }
-    });
-
-}
-
-// ******** CODE FOR API CALLBACK FUNCTION IN HTML ***************
+// **************************************************
+// Functions called in HTML as google callback
 function initialize() {
-    getUserIPLocation();
-    // calcRoute();
-    getDirections();
-    console.log("successss");
-    // getDistance();
-    // getDirections();
-
+    initMap();
+    // whatever();
 }
-
-var myObj = { //object
-    test: 4,
-    test2: function() { //method
-        test = 5;
-        console.log(test);
-    }
-}
-
-myObj.test2()
-
